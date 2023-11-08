@@ -1,0 +1,184 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins" , sans-serif;
+}
+::-webkit-scrollbar{
+    width: 10xp;
+}
+::-webkit-scrollbar-track{
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb{
+    background: #888;
+}
+
+::selection{
+    background: rgb(0,123,255,0.3);
+}
+
+.content {
+    max-width: 1250px;
+    margin: auto;
+    padding: 0 30px;
+}
+.navbar.sticky {
+    background :#1b1b1b;
+    padding: 10px 0;
+    box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.1);
+}
+.navbar {
+    position:fixed;
+    width: 100%;
+    z-index: 2;
+    padding: 25px 0;
+    transition: all 0.3s ease;
+    background: #1b1b1b;
+}
+
+.navbar .content{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar .logo a{
+    color: #ebe0e0;
+    font-size: 30px;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.navbar .menu-list{
+    display: inline-flex;
+}
+.menu-list li {
+    list-style: none;
+}
+.menu-list li a{
+    color: #ccc;
+    font-size: 18px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    margin-left: 25px;
+}
+
+.menu-list li a:hover{
+    color:#007bff
+}
+
+.icon {
+    font-size: 18px;
+    font-weight: 700;
+    color: #ccc;
+    padding-left: 15px;
+    cursor: pointer;
+    display: none;
+}
+.icon:hover{
+    color:#75b3b3
+}
+
+.menu-list input{
+    font-size: 18px;
+    font-family: "Poppins",sans-serif;
+    outline: none;
+    border: none;
+    border-radius: 2px;
+    width: 200px;
+}
+.search {
+    color:#ccc;
+    font-size: 18px;
+    padding-left: 10px;
+    background-size: 0px;
+    caret-color: #1b1b1b;
+    
+}
+.search .drop-down{
+    font-size: 18px;
+    border: none;
+    outline: none;
+    padding-right: 5px;
+    margin-right: 5px;
+    font-family: "Arial" , 'Segoe UI', Tahoma, Verdana, sans-serif;
+}
+.search i{
+    padding-left: 7px;
+    cursor: pointer;
+}
+
+.icon.cancel-btn{
+    position: absolute;
+    right: 30px;
+    top :20px;
+}
+/* .profile {
+    /* existing styles 
+    display: flex;
+    align-items:centr;
+    justify-content: end;
+} */
+
+.profile img {
+    width: 35px; /* Adjust the size as needed */
+    height: 35px; /* Adjust the size as needed */
+    border-radius: 50%;
+    object-fit: cover;
+    margin-left: 20px;
+}
+
+.profile img .default {
+    width: 100px;
+    color: #007bff;
+    height: 100px;
+}
+
+@media (max-width : 868px){
+    .icon{
+        display: block;
+    }
+    .icon.hide {
+        display: none;
+    }
+     .navbar .menu-list{
+        width: 100%;
+        position: fixed;
+        top: 0;
+        left: -100%; 
+        background: #222;
+        padding: 40px 0;
+        height: 100vh;
+        max-width: 400px;
+        display: block;
+        padding: 40px 0;
+        text-align: center;
+        transition: all 0.3s ease;
+    } 
+    .navbar .menu-list.active {
+        left:0;
+    }
+    .navbar .menu-list li{
+        margin-top: 25px;
+    }
+    .navbar.show .menu-list{
+        left: 0%;
+    }
+    .navbar .menu-list li a{
+        font-size: 23px;
+        margin-left: -100px;
+        transition: 0.6s cubic-bezier(0.68, -0.55,0.265,1.55);
+    }
+    .navbar.show .menu-list a{
+        margin-left: 0px;
+    }
+}
+@media (max-width : 1230px){
+    .navbar .logo a{
+        font-size: 27px;
+    }
+}

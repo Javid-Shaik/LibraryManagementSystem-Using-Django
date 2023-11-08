@@ -1,0 +1,134 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width , initial-scale=1.0">
+        <title>LibraQuest</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/base_styles.css' %}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+        <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+    </head>
+    <body>
+        <nav class="navbar">
+            <div class="content">
+                <div class="logo"><a href="{% url 'signup:about_libraquest' %}">LibraQuest</a></div>
+                <ul class="menu-list">
+                    <div class="icon cancel-btn">
+                        <i class="fas fa-times"></i>
+                    </div>
+                    <li>
+                        <div class="search">
+                            <select class="drop-down">
+                                <option value="All">All</option>
+                                <option value="Title">Title</option>
+                                <option value="Author">Author</option>
+                                <option value="Isbn">Isbn</option>
+                                <option value="Publisher">Publisher</option>
+                            </select>
+                            <input type="text" name="search" placeholder="Search" class="search-box" required>
+                            <i class="fas fa-search" onclick="book_search()"></i>
+                        </div>
+                    </li>
+                    <li><a href="{% url 'signup:homepage'%} ">Home</a></li>
+                    <li><a href="#">Quest</a></li>
+                    {% if user.is_authenticated %}
+                    <li>
+                        <a href="{% url 'signup:show_books' %}">Borrow Books</a>
+                    </li>
+                    {% else %}
+                    <li>
+                        <a href="{% url 'signup:login_user' %}">Sign in</a>
+                    </li>
+                    {% endif %}
+                    {% if user.is_authenticated %}
+                        <div class="profile">
+                            {% if user.profile_image.url %}
+                                <li><a href="{% url 'user_profile' username=request.user.username %}" ><img src="{{ user.profile_image.url }}" alt="Profile Picture"></a></li>
+                            {% else %}
+                                <li><a href="{% url 'user_profile' username=request.user.username  %}"><img src="{{ user.profile_image.url }}" alt="Default Profile Picture"></a></li>
+                            {% endif %}
+                        </div>
+                    {% else %}
+                        <li><a href="{%url 'signup:register' %}">Sign Up</a></li>
+                    {% endif %}
+                </ul>
+                <div class="icon menu-btn">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+        </nav>
+        <div class="about">
+            <div class="error-text">
+                {% if message %}
+                    {% for message in messages %}
+                        {{ message }}
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+        {% block content %}
+        {% endblock %}
+        <script>
+            const menu = document.querySelector(".menu-list");
+            const navbar = document.querySelector(".navbar");
+            const menuBtn = document.querySelector(".menu-btn");
+            const cancelBtn = document.querySelector(".cancel-btn");
+            const  profile = document.querySelector(".profile")
+
+            menuBtn.onclick = ()=> {
+                menu.classList.add("active");
+                menuBtn.classList.add("hide");
+                // profile.classList.add("hide");
+            }
+
+            cancelBtn.onclick = ()=> {
+                menu.classList.remove("active");
+                menuBtn.classList.remove("hide");
+                menuBtn.classList.remove("hide");
+            }
+
+            window.onscroll = ()=> {
+                if(this.scrollY >20) {
+                    navbar.classList.add("sticky");
+                    menu.classList.add("sticky");
+                }
+                else{
+                    navbar.classList.remove("sticky");
+                    menu.classList.remove("sticky");
+                } 
+                
+            }
+
+            const search_box = document.querySelector(".search-box");
+
+            search_box.addEventListener('keyup', function(event) {
+                // Check if the Enter key was pressed (key code 13)
+                if (event.keyCode === 13) {
+                  // Call the search function
+                  book_search();
+                }
+            });
+
+            function book_search(){
+                const dropdown = document.querySelector(".drop-down");
+                var book_domain = dropdown.value;
+                var searchInput = document.querySelector('input[name="search"]');
+                var searchValue = searchInput.value;
+                var url = "{% url 'book_search'%}?book_domain=" + book_domain+"&text="+ searchValue;
+                if (searchValue.trim() === "") {
+                    // If both dropdown value and search text are empty, redirect to the default book search page
+                    window.location.href = "{% url 'signup:homepage' %}";
+                } else {
+                    // Redirect to the book search page with the selected dropdown value and search text
+                    window.location.href = url;
+                }
+            }
+        </script>
+        <footer class="footer">
+            <p>&copy; 2023 Library Management System. All rights reserved.</p>
+        </footer>
+    </body>
+</html>
+
+

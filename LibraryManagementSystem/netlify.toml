@@ -1,0 +1,6 @@
+[build]
+command = "python manage.py collectstatic --noinput"
+publish = "myenv/Scripts/LibraryManagementSystem/static"  # Update this path with the relative path to your static files
+
+[build.environment]
+DJANGO_SETTINGS_MODULE = "LibraryManagementSystem.settings"

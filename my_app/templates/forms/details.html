@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>User Deatils</title>
+    </head>
+    <body>
+        <h1>User Details</h1>
+        <ul>
+            {% for user in users %}
+            <li>{{ user.first_name }} {{ user.last_name }}</li>
+            <li>UserName : {{ user.username }}</li>
+            <li>Email : {{ user.email }}</li>
+            <li>Password : {{user.password}}</li>
+            <li>Image : <img src="{{ user.profile_image.url }}" alt="No photo"/></li>
+            <li>Role : {{ user.role }}</li>
+            <hr>
+            {% endfor %}
+        </ul>
+        <ul>
+            {% for book in books %}
+            <li>{{ book.id }}</li>
+            <li>{{ book.title }}</li>
+            <hr>
+            <hr>
+            {% endfor %}
+        </ul>
+        <a href="{% url 'signup:register'%}">Register</a>
+    </body>
+</html>
+
+

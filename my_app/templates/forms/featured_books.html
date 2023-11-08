@@ -1,0 +1,21 @@
+{% extends 'forms/base.html' %}
+{% load static %}
+{% block content %}
+<link rel='stylesheet'  href="{% static 'css/featured_books.css' %}">
+<section>
+  <h1>Featured Books</h1>
+  <div class="featured-books">
+    {% for book in featured_books %}
+      <div class="book-card">
+        <img src="{{ book.cover_image.url }}" alt="{{ book.title }}" class="book-image">
+        <h2 class="book-title">{{ book.title }}</h2>
+        <p class="book-author">{{ book.author }}</p>
+        <p class="book-description">{{ book.description }}</p>
+        <a href={% url 'learn_more' book_id=book.id %}  class="btn btn-primary">Learn More</a>
+      </div>
+    {% empty %}
+      <p>No featured books available.</p>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

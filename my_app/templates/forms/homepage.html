@@ -1,0 +1,17 @@
+{% extends 'forms/base.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/homestyles.css' %}">
+<body>
+  <section class="hero">
+      <div class="hero-content">
+        <h2>Welcome to Our Library</h2>
+        <p>Discover, learn, and expand your knowledge</p>
+        <a href="{% url 'signup:featured_books' %}" class="cta-button">Explore</a>
+      </div>
+  </section>
+  <div class="home-bg" >
+    {% comment %} <img src="http://www.cr2.in/images/innerpage-banner/pro-librarian.jpg" alt='No image'> {% endcomment %}
+  </div>
+</body>
+{% endblock %}

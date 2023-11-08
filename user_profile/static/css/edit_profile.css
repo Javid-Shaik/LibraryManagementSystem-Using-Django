@@ -1,0 +1,154 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.containers  {
+    background: #5c5b5b;;
+    width: 450px;
+    height:500px;
+    margin-left: 400px;
+    margin-top: 100px;
+    border-radius: 5px;
+    align-items: center;
+} 
+.containers form {
+    margin: 10px;
+}
+.containers h1{
+    font-size: 25px;
+    font-weight: 600;
+    margin-left: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e6e6e6;
+    color: #e6e6e6;
+}
+.box .name-detail{
+    display: flex;
+}
+
+.box .fields {
+    font-size: 14px;
+}
+
+.box .name-detail .inputs input  {
+    width: 200px;
+    height: 30px;
+    margin-right: 20px;
+}
+.box .inputs input {
+    border: none;
+    border-radius: 3px;
+    outline: none;
+}
+.containers form .fields {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+.containers form .box .fields label {
+    margin-bottom: 2px;
+    color: #e6e6e6;
+}
+.containers form .inputs input {
+    border: none;
+    border-radius: 5px;
+    outline: none;
+    width: 300px;
+    height: 30px;
+    font-size: 14px;
+    font-weight: 500;
+}
+.containers form .image input {
+    font-size: 14px;
+    color: azure;
+    cursor: pointer;
+}
+
+.containers form .button input {
+    margin-top: 13px;
+    height: 45px;
+    border: none;
+    font-size: 17px;
+    font-weight: 500;
+    background: #797878;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.containers form .button input:hover {
+    background-color: #4d494993;
+}
+
+.containers form .button input:hover {
+    background-color: #333;
+}
+
+.containers .back-btn {
+    display: flex;
+    margin: 10px;
+}
+
+.containers .back-btn a{
+    margin: 10px;
+    color: #e6e6e6;
+    font-size: 18px;
+    background-color: #333;
+    width: 25px;
+    padding-left: 5px;
+    padding-top: 3px;
+    border-radius: 50%;
+    text-decoration: none;
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.containers form .address textarea {
+    border-radius: 5px;
+    outline: none;
+    resize: none;
+    font-size: 14px;
+}
+
+/* Media query for screens up to 768px */
+@media (max-width: 768px) {
+    .containers {
+        width: auto;
+        margin: 35% 20px;
+        height: 500px;
+        filter: drop-shadow(5px 5px 15px #fff);
+    }
+    .name-detail .fields {
+        margin-right: 10px;
+    }
+    .containers form .name-detail .inputs input {
+        width: 100%;
+        margin-right: 10px;
+        margin-bottom: 10px;
+    }
+
+    .containers form .box .fields label {
+        font-size: 12px;
+    }
+
+    .containers form .inputs input,
+    .containers form .inputs textarea,
+    .containers form .image input,
+    .containers form .button input {
+        width: 100%;
+    }
+
+    .containers .back-btn a {
+        margin-bottom: 10px;
+        margin-top: 10px;
+    }
+    .footer{
+        font-size: 12px;
+    }
+}

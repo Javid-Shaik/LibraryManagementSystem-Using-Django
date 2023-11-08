@@ -1,0 +1,146 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+{% extends 'forms/base.html' %}
+{% load static %}
+{% block content %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'css/show_books.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/base_styles.css' %}">
+<section >
+    <table class="books book-details">
+        <tr>
+            <td colspan="8" id="borrowNotification"></td>
+        </tr>
+        <tr>
+            <th>SI.NO</th>
+            <th>Book Details</th>
+            <th>Author(s)</th>
+            <th>ISBN</th>
+            <th>Publisher</th>
+            <th>Publication</th>
+            <th>Edition</th>
+            <th>Borrow</th>
+        </tr>
+        {% for book in books %}
+        <tr>
+            <td class="sino">{{ forloop.counter }}</td>
+            <td>
+                <div class="cover-image">
+                    <img src= "{{ book.cover_image.url }}" alt="Cover Image">
+                    <div class="description">
+                        <p>{{ book.description }}</p>
+                    </div>
+                </div>
+                <div class="title">{{ book.title }}</div>
+            </td>
+            <td>{{ book.author_name }}
+            <td>{{ book.isbn }}</td>
+            <td>{{ book.publisher }}</td>
+            <td>{{ book.publication }}</td>
+            <td>{{ book.edition }}</td>
+            <td>
+                <button class="btn btn-primary borrow-button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <a href="{% url 'borrow_books' book_id=book.id %}" ><i class="fas fa-plus"></i></a>Borrow
+                </button>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <div class="pagination">
+        <ul class="pagination justify-content-center">
+            
+            {% if books.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page=1">&laquo; First</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ books.previous_page_number }}">Previous</a>
+                </li>
+            {% endif %}
+
+            {% for num in books.paginator.page_range %}
+                <li class="page-item {% if num == books.number %}active{% endif %}">
+                    {% if books.number != page_num %}
+                        <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                    {% else %}
+                        <span>{{ page_num }}</span>
+                    {% endif %}
+                </li>
+            {% endfor %}
+
+            {% if books.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ books.next_page_number }}">Next</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ books.paginator.num_pages }}">Last &raquo;</a>
+                </li>
+            {% endif %}
+        </ul>
+    </div>
+</section>
+{% include 'pop_up_msg.html'%}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $('.borrow-button').click(function(e) {
+            e.preventDefault();
+            var url = $(this).find('a').attr('href');
+            $.ajax({
+                url: url,
+                type: 'GET',
+                success: function(response) {
+                    var message = response.message;
+                    var success = response.success;
+                    var status = response.status;
+                    // var book = response.book;
+                    showBorrowNotification(message, success , status);
+                },
+                error: function(xhr, textStatus, errorThrown) {
+                    console.log(xhr.responseText);
+                }
+            });
+        });
+        function showBorrowNotification(message , success , status) {
+            // Intercept the AJAX response when the user borrows a book
+            $(document).ajaxComplete(function (event, xhr, settings) {
+                // Check if the response contains the message and success status
+                if (settings.url.includes('/borrow_books/') && xhr.responseJSON) {
+                    const response = xhr.responseJSON;
+                    console.log(response.message);
+                    if (response.success) {
+                        
+                        // Show the success message in the modal
+                        $('#borrowMessageText').text(response.message);
+                        $('#borrowMessageModal').modal('show');
+                        $('#exampleModalLabel').text('Borrowed').css('color' , 'green');
+                        $('#notify').css('display', 'none');
+                    } else {
+                        // Show the error message in the modal
+                        if (response.status === 'non_subscriber') {
+                            const username = "{{ user.username }}"; 
+                            const subscribeUrl = `/profile/subscribe/${username}/`;
+                            window.location.href = subscribeUrl;
+                        } else {
+                            $('#borrowMessageText').text(response.message).css('color' , '#1b1b1b');
+                            $('#borrowMessageText').css('color', '#1b1b1b');
+                            $('#borrowMessageModal').modal('show');
+                        }
+                        // if the book is unavailable then display both notify button and close button
+                        if (response.status === 'unavailable') {
+                            $('#notify').css('display', 'block');
+                            $('#exampleModalLabel').text('Unavailable!').css('color' , '#1b1b1b');
+                        // if the use has Already Borrowed the book then display only the close button
+                        } else {
+                            $('#exampleModalLabel').text('Already Borrowed!').css('color' , 'red');
+                            $('#notify').css('display', 'none'); // Hide the Notify button
+                        }
+                    }
+                }
+            });
+        }
+    });
+</script>
+{% endblock %}

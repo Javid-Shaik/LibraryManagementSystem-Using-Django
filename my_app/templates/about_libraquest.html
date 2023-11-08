@@ -1,0 +1,30 @@
+{% extends 'forms/base.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static "css/about.css" %}">
+    <div class="about-page">
+        <h2>About LibraQuest</h2>
+        <p>Welcome to LibraQuest, your ultimate destination for exploring and borrowing books online. Our library management system is designed to provide you with a seamless and user-friendly experience, allowing you to discover, learn, and expand your knowledge.</p>
+        
+        <h3>Our Mission</h3>
+        <p>At LibraQuest, our mission is to promote a love for reading and facilitate access to a wide range of books for readers of all ages and interests. We strive to create a community of avid readers, where learning and intellectual growth are encouraged.</p>
+        
+        <h3>Features</h3>
+        <ul>
+            <li>Extensive collection of books across various genres</li>
+            <li>Easy book search and filtering options</li>
+            <li>Convenient book borrowing and return process</li>
+            <li>Personalized user profiles</li>
+            <li>Book recommendations based on your reading preferences</li>
+            <li>Interactive community forums and discussions</li>
+        </ul>
+        
+        <h3>Contact Us</h3>
+        <p>If you have any questions, feedback, or suggestions, we'd love to hear from you. Please feel free to reach out to our support team:</p>
+        <ul>
+            <li>Email: <a href="mailto:support@ibraquest.com">support@libraquest.com</a></li>
+            <li>Phone: <a href="tel:123-456-7890">123-456-7890</a></li>
+        </ul>
+    </div>
+{% endblock %}

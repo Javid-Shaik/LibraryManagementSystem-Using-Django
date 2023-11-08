@@ -1,0 +1,114 @@
+{% extends 'forms/base.html' %}
+{% load static %}
+{% block content %}
+<style>
+  .book-details {
+      margin:10px;
+      margin-top:100px;
+      padding: 20px;
+      background-color: #f8f8f8;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    
+    h2 {
+      margin-bottom: 20px;
+      font-size: 24px;
+    }
+    
+    h3 {
+      margin-top: 20px;
+      font-size: 18px;
+    }
+    
+    p {
+      margin-bottom: 10px;
+      line-height: 1.5;
+    }
+    
+    .book-summary,
+    .author-info,
+    .publication-details,
+    .genre,
+    .reviews-ratings,
+    .table-of-contents,
+    .related-books,
+    .availability,
+    .additional-resources {
+      margin-bottom: 20px;
+    }
+    
+    ul,
+    ol {
+      padding-left: 20px;
+    }
+    
+    a {
+      color: #0066cc;
+      text-decoration: none;
+    }
+    
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+<div class="book-details">
+    <h2>Learn More</h2>
+    <div class="book-summary">
+      <h3>Summary</h3>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam quis ante sed velit finibus placerat. Fusce sit amet est a mauris viverra lacinia.</p>
+    </div>
+    <div class="author-info">
+      <h3>Author</h3>
+      <p>{{ book.author_name }}</p>
+      <p>{{ book.description }}</p>
+    </div>
+    <div class="publication-details">
+      <h3>Publication Details</h3>
+      <p>Publisher: {{ book.publisher }}</p>
+      <p>Publication Date: {{ book.publication }}</p>
+      <p>Edition: {{ book.edition }}</p>
+    </div>
+    <div class="genre">
+      <h3>Genre</h3>
+      <p>Fiction</p>
+    </div>
+    <div class="reviews-ratings">
+      <h3>Reviews and Ratings</h3>
+      <p>⭐️⭐️⭐️⭐️</p>
+      <p>"A must-read book!" - Reader123</p>
+    </div>
+    <div class="table-of-contents">
+      <h3>Table of Contents</h3>
+      <ol>
+        <li>Chapter 1: Introduction</li>
+        <li>Chapter 2: The Adventure Begins</li>
+        <li>Chapter 3: Trials and Tribulations</li>
+        <li>Chapter 4: The Climax</li>
+        <li>Chapter 5: Conclusion</li>
+      </ol>
+    </div>
+    <div class="related-books">
+      <h3>Related Books</h3>
+      <ul>
+        <li><a href="#">Book 1</a></li>
+        <li><a href="#">Book 2</a></li>
+        <li><a href="#">Book 3</a></li>
+      </ul>
+    </div>
+    <div class="availability">
+      <h3>Availability</h3>
+      <p>Copies Available: {{ book.copies_available }}</p>
+      <p>Formats: Hardcover, Paperback, eBook</p>
+      <p>Borrowing Restrictions: None</p>
+    </div>
+    <div class="additional-resources">
+      <h3>Additional Resources</h3>
+      <ul>
+        <li><a href="#">Author Interview</a></li>
+        <li><a href="#">Book Trailer</a></li>
+        <li><a href="#">Related Articles</a></li>
+      </ul>
+    </div>
+  </div>
+{% endblock %}

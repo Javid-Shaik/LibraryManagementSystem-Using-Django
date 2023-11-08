@@ -1,0 +1,17 @@
+{% extends 'forms/base.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" type="text/css" href = "{% static 'css/subscribe.css'%}">
+<div class="containers">
+    <h1>Subscribe to our Newsletter</h1>
+    <p>Stay updated with the latest news and promotions.</p>
+    <form action="{% url 'subscription' username=username %}" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" name="email" id="email" placeholder="Enter your email" required>
+        </div>
+        <button type="submit" class="btn">Subscribe</button>
+    </form>
+</div>
+{% endblock %}

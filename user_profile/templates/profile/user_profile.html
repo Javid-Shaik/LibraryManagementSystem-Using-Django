@@ -1,0 +1,94 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+{% extends 'forms/base.html' %}
+{% load static %}
+{% block content %}
+    <main>
+        <div class="component">
+            <div class="user">
+                <div class="profile-picture">
+                    <!-- User's profile picture/avatar -->
+                    {% if user.profile_image.url %}
+                        <img src="{{ user.profile_image.url }}" alt="Profile Picture">
+                    {% else %}
+                        <img src="{{ user.profile_image.url }}" alt="Default Profile Picture">
+                    {% endif %}
+                </div>
+                <div class="user-name">
+                    <h2>{{ user.first_name}} {{ user.last_name }}</h2>
+                </div>
+            </div>
+            <div class="edit-btn">
+                <button id="b1">Edit Profile</button>
+            </div>
+            <div class="user-info">
+                <p>Role: {{ user.role }}</p>
+                <p>Email: {{ user.email }}</p>
+                <p>Phone: {{ user.phone }}</p>
+                <p>Address: {{ user.address }}</p>
+            </div>
+            <div class="actions">
+                <button class="btn btn-primary" id="b2"><i class="fas fa-sign-out-alt"></i> Sign Out</button>
+            </div>
+        </div>
+        {% if borrowings %}
+        <div class="activity book-details">
+            <h2>Borrowed Books</h2>
+            <!-- List of borrowed books -->
+            <table class="table-container">
+                <tr>
+                    <th>SI.NO</th>
+                    <th>Book Details</th>
+                    <th>Borrowed Date</th>
+                    <th>Due Date</th>
+                    <th>Return Date</th>
+                    <th>Status</th>
+                    <th>Return</th>
+                </tr>
+                {% for borrowing in borrowings %}
+                    {% if borrowing.status == 'Borrowed' %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>
+                            <div class="cover-image">
+                                <img src= "{{ borrowing.book.cover_image.url }}" alt="Cover Image">
+                            </div>
+                            <p>{{ borrowing.book.title }}</p>
+                            <p style="color:#fff">Author(s) : {{ borrowing.book.author_name }}</p>
+                        </td>
+                       <td>{{ borrowing.borrowed_date}}</td>
+                       <td>{{ borrowing.due_date }}</td>
+                       <td>{{ borrowing.return_date }}</td>
+                       <td>{{ borrowing.status }}</td>
+                       <td>
+                        <button class="return-button">
+                            <a href="{% url 'return_book' book_id=borrowing.book.id %}"><i class="fas fa-minus"></i></a> Return
+                        </button>
+                        </td>
+                    </tr>
+                    {% endif %}
+                {% endfor %}
+            </table>
+        </div>
+        {% endif %}
+    </main>
+    {% include 'pop_up_msg.html'%}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        const editBtn = document.querySelector("#b1");
+        const signoutBtn = document.querySelector("#b2");
+        editBtn.onclick = ()=> {
+            window.location.href = "{% url 'edit_profile' %}";
+        }
+
+        signoutBtn.onclick = ()=> {
+            window.location.href = "{% url 'signup:logout' %}"
+        }
+        $('.return-button').click(function(e) {
+            e.preventDefault();
+            var url = $(this).find('a').attr('href');
+            console.log(url);
+            window.location.href = url;
+        })
+    </script>
+{% endblock %}

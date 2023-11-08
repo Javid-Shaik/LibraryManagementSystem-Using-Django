@@ -1,0 +1,78 @@
+{% extends 'forms/base.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+<div class="full-container">
+    <div class="container">
+        <div class="wrapper">
+            <section class="form signup">
+                <header>LibraQuest</header>
+                <form action="{% url 'signup:register' %}" enctype="multipart/form-data" method="post">
+                    {% csrf_token %}
+                    {% if messages %}
+                    <div class="error-txt">
+                        {% for message in messages %}
+                            {% if message %}    
+                                {{ message }}
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                    <div class="name-details">
+                        <div class="field input">
+                            <label>First Name</label>
+                            <input type="text" name="fname" placeholder="First Name" required>
+                        </div>
+                        <div class="field input">
+                            <label>Last Name</label>
+                            <input type="text" name="lname" placeholder="Last Name" required>
+                        </div>
+                    </div>
+                    <div class="field input">
+                        <label>User name</label>
+                        <input type="text" name="username" placeholder="Enter User name" required>
+                    </div>
+                    <div class="field input dropdown">
+                        <label>Mobile</label>
+                        <input type="number" name="phone" placeholder="Enter Phone Number " required>
+                    </div>
+                    <div class="field input">
+                        <label>Email</label>
+                        <input type="email" name="email" placeholder="Enter your email" required>
+                    </div>
+                    <div class="field input">
+                        <label>Password</label>
+                        <input type="password" name="password" placeholder="Enter new password" required>
+                        <i class="fas fa-eye"></i>
+                    </div>
+                    <div class="field address">
+                        <label>Address</label>
+                        <textarea rows="3" cols="60" name="Address"></textarea>
+                    </div>
+                    <div class="Role">
+                        <label>Role</label><br>
+                        <input type="radio" name="role" value="student">
+                        <label for="student">Student</label>
+                        <input type="radio" name="role" value="teacher">
+                        <label for='teacher'>Teacher</label>
+                        <input type="radio" name="role" value="librarian">
+                        <label for='librarian'>Librarian</label>
+                        <input type="radio" name="role" value="admin">
+                        <label for='admin'>Admin</label>
+                    </div>
+                    <div class="field image">
+                        <label>Select Profile Image</label>
+                        <input type="file" name="image">
+                    </div>
+                    <div class="field button">
+                        <input type="submit" value="Continue to Read"/>
+                    </div>
+                </form>
+                <div class="link">Already signed up? <a href="{% url 'signup:login_user' %}">Login</a></div>
+            </section>
+        </div>
+        <script src="{% static 'js/pass-show-hide.js' %}"></script>
+        <script src="{% static 'js/password-validation.js' %}"></script>
+    </div>
+</div>
+{% endblock %}

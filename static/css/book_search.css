@@ -1,0 +1,31 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Arial" sans-serif;
+}
+
+body {
+    background-color: #d6d2d2;
+}
+
+.container {
+    margin-top: 50px;
+    border-radius: 5px;
+}
+.card-body p{
+    font-size:12px;
+    padding-top: 1px;
+}
+.row .column {
+    width: 200px;
+    height: auto;
+}
+
+.card img {
+    border-radius: 4px;
+    border: none;
+}
+.row .column .card {
+    margin-right: 10px;
+}
