@@ -201,7 +201,6 @@ def return_book(request , book_id):
 
 @login_required
 def notify_book_available(request, book_id):
-    print(book_id)
     user = request.user
     book = Books.objects.get(id=book_id)
     print(book)

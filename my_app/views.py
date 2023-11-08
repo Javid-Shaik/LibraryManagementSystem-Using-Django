@@ -225,7 +225,7 @@ def reset_password(request):
                 message = f"Dear {user.first_name.capitalize()} {user.last_name.capitalize()},\nPlease click the below link to reset the password.\n{reset_url}"
                 from_email = settings.DEFAULT_FROM_EMAIL
                 recipient_list = [user.email]
-                send_mail(subject, message, from_email, recipient_list)
+                send_mail(subject, message, from_email, recipient_list , fail_silently=True)
                 messages.success(request, "Please check your email to reset the password.")
                 return redirect('signup:forgot_password')
             
