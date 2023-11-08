@@ -167,8 +167,14 @@ EMAIL_HOST_PASSWORD= os.environ.get("EMAIL_HOST_PASSWORD")
 EMAIL_USE_TLS= os.environ.get("EMAIL_USE_TLS")
 
 # Celery settings this is for sending mails asynchoronusly
-CELERY_BROKER_URL = 'redis://red-c6na6rjru51t7lilgs3g:6379/0'
-CELERY_RESULT_BACKEND = 'redis://red-c6na6rjru51t7lilgs3g:6379/0'
+if 'RENDER_ENV' in os.environ:
+    # Running in Render.com production environment
+    CELERY_BROKER_URL = 'redis://red-c6na6rjru51t7lilgs3g:6379/0'
+    CELERY_RESULT_BACKEND = 'redis://red-c6na6rjru51t7lilgs3g:6379/0'
+else:
+    # Running locally
+    CELERY_BROKER_URL = 'redis://localhost:6379/0'
+    CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
 
 
 CELERY_BEAT_SCHEDULE = {
