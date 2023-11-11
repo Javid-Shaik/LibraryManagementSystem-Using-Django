@@ -6,17 +6,23 @@ Hello there! 👋 I'm Javid Shaik, and I've developed an innovative [Library Man
 
 ## Overview
 
-This system is designed to provide an efficient and seamless experience for managing library resources. You can explore the deployed version of the system [here](https://library-management-system-vo7k.onrender.com/).
+This system is designed to provide an efficient and seamless experience for managing library resources.
+
+![Library Evolution Placeholder Image](ScreenShots/Screenshot%20(21).png)
 
 ## Key Features
 
 - **Web Application:** Crafted with precision to ensure a modern and user-friendly experience for seamless content delivery.
+
+![Web Application Screenshot](ScreenShots/Screenshot%20(18).png)
 
 - **Django-Powered Backend:** Empowered by Django, a Python web framework, showcasing the capabilities of a solo developer.
 
 - **Data Integration:** Navigated the complexities of data integration, ensuring a smooth flow of information within the system.
 
 - **Authentication:** Robust authentication mechanisms provide a secure environment for users.
+
+![Authentication Placeholder Image](ScreenShots/Screenshot%20(26).png)
 
 - **Performance Optimization:** Overcoming performance hurdles through rigorous testing, adherence to best practices, and a relentless commitment to refining the codebase.
 
@@ -27,6 +33,8 @@ Throughout the development process, I encountered and successfully overcame chal
 - **Rigorous Testing:** Thorough testing procedures were implemented to ensure the reliability and stability of the system.
 
 - **Best Practices:** Leveraging the best practices of the Django framework to build a robust and maintainable codebase.
+
+![Best Practices Placeholder Image](ScreenShots/Screenshot%20(24).png)
 
 - **Commitment to Refinement:** A relentless commitment to refining the codebase, ensuring that the system operates seamlessly and efficiently.
 
@@ -58,6 +66,8 @@ Visit [http://localhost:8000](http://localhost:8000) in your browser to explore 
 ## Live Demo
 
 Check out the live demo of the Library Management System [here](https://library-management-system-vo7k.onrender.com/).
+
+![Live Demo Placeholder Image](ScreenShots/Screenshot%20(14).png)
 
 ## Contribution
 
