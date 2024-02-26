@@ -160,11 +160,15 @@ LOGIN_REDIRECT_URL = "/borrow_book"
 
 
 # Caching mechanism
+redis_url = 'redis://127.0.0.1:6379/1'
+
+if os.environ.get('RENDER_ENV')=='production':
+    redis_url = os.environ.get('REDIS_URL')
 
 CACHES = {
     'default': {
         'BACKEND': 'django_redis.cache.RedisCache',
-        'LOCATION': 'redis://127.0.0.1:6379/1',  # Adjust the URL based on your Redis setup
+        'LOCATION': redis_url,  # Adjust the URL based on your Redis setup
         'OPTIONS': {
             'CLIENT_CLASS': 'django_redis.client.DefaultClient',
         }
