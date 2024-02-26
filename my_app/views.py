@@ -26,6 +26,8 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from django.core.cache import cache
 
+from django.contrib.auth.decorators import login_required
+
 
 
 def register(request):
@@ -159,6 +161,7 @@ def logout_user(request):
     messages.error(request, "You Were Logged Out...",'base')
     return redirect('signup:homepage')
     
+@login_required
 def show_books(request):
     
     # Check if books are already in the cache
