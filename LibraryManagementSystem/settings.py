@@ -43,6 +43,7 @@ ALLOWED_HOSTS = [".onrender.com" ,"*"]
 # Application definition
 
 INSTALLED_APPS = [
+    'django_redis',
     'my_app',
     'user_profile',
     'sslserver',
@@ -157,6 +158,23 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 LOGIN_URL = "/login"
 LOGIN_REDIRECT_URL = "/borrow_book"
 
+
+# Caching mechanism
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django_redis.cache.RedisCache',
+        'LOCATION': 'redis://127.0.0.1:6379/1',  # Adjust the URL based on your Redis setup
+        'OPTIONS': {
+            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+        }
+    }
+}
+
+# Optionally set CACHE_MIDDLEWARE_SECONDS to control cache timeout for views
+CACHE_MIDDLEWARE_SECONDS = 60  # Cache timeout in seconds
+
+
 #Email redentials setting
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -167,7 +185,7 @@ EMAIL_HOST_PASSWORD= os.environ.get("EMAIL_HOST_PASSWORD")
 EMAIL_USE_TLS= os.environ.get("EMAIL_USE_TLS")
 
 # Celery settings this is for sending mails asynchoronusly
-if 'RENDER_ENV' in os.environ:
+if os.environ.get('RENDER_ENV') == 'production':
     # Running in Render.com production environment
     CELERY_BROKER_URL = 'redis://red-c6na6rjru51t7lilgs3g:6379/0'
     CELERY_RESULT_BACKEND = 'redis://red-c6na6rjru51t7lilgs3g:6379/0'
@@ -176,14 +194,20 @@ else:
     CELERY_BROKER_URL = 'redis://localhost:6379/0'
     CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
 
+# CELERY_BROKER_URL = 'redis://localhost:6379/0'
+# CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
 
 CELERY_BEAT_SCHEDULE = {
     'send-overdue-reminders': {
-        'task': 'my_app.tasks.send_overdue_reminders',
+        'task': 'user_profile.tasks.send_overdue_reminders',
         'schedule': timezone.timedelta(days=1),  # Run daily
     },
     'send-upcoming-due-date-notifications': {
-        'task': 'myapp.tasks.send_upcoming_due_date_notifications',
+        'task': 'user_profile.tasks.send_upcoming_due_date_notifications',
+        'schedule': timezone.timedelta(days=1),  # Run daily
+    },
+    'update-overdue-field': {
+        'task': 'myapp.tasks.update_overdue_field',
         'schedule': timezone.timedelta(days=1),  # Run daily
     },
 }

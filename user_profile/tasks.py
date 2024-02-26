@@ -1,13 +1,19 @@
 # user_profile/tasks.py
 
+from datetime import datetime
 from celery import shared_task
 from django.core.mail import send_mail
 from django.conf import settings
 from django.utils import timezone
 from my_app.models import Books, Borrowings
 
+import logging
+logger = logging.getLogger(__name__)
+
 @shared_task
 def send_book_available_notification(book_title, user_email):
+    logger.info(f"Received task with book_title: {book_title} and user_email: {user_email}")
+    
     subject = 'Book Available Notification'
     message = f'The book "{book_title}" is now available in our library.'
     from_email = settings.DEFAULT_FROM_EMAIL
@@ -29,16 +35,23 @@ def send_overdue_reminders():
         print(subject , message , recipient_list)
         send_mail(subject, message, from_email, recipient_list, fail_silently=True)
 
+@shared_task
+def update_ovedue_field():
+    overdue_books = Borrowings.objects.filter(due_date__lt=timezone.now())
+    for book in overdue_books:
+        book.status = "Overdue"
+    
 @shared_task      
 def send_upcoming_due_date_notifications():
     
     upcoming_books = Borrowings.objects.filter(due_date__lt=timezone.now()+timezone.timedelta(days=3) , status='Borrowed')
     
     for book in upcoming_books:
-        subject = f"Upcoming Due Date: {book.title}"
-        message = f"Dear {book.member.user.username},\n\nThis is a reminder that the book '{book.book.title}' is due in {book.due_date - timezone.now()} days.\n\nThank you."
+        subject = f"Upcoming Due Date: {book}"
+        due_datetime = datetime.combine(book.due_date, datetime.min.time())
+        message = f"Dear {book.member.user.username},\n\nThis is a reminder that the book '{book.book.title}' is due in {datetime.now()-due_datetime} days.\n\nThank you."
         from_email = settings.DEFAULT_FROM_EMAIL
-        recipient_list = [book.borrower.email]
+        recipient_list = [book.member.user.email]
         print(subject , message , recipient_list)
         send_mail(subject, message, from_email, recipient_list, fail_silently=True)
     

@@ -24,6 +24,10 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.hashers import make_password
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
+from django.core.cache import cache
+
+
+
 def register(request):
     if request.method == 'POST':
         fname = request.POST.get('fname')
@@ -156,7 +160,15 @@ def logout_user(request):
     return redirect('signup:homepage')
     
 def show_books(request):
-    book_list = Books.objects.all()
+    
+    # Check if books are already in the cache
+    book_list = cache.get('books')
+    
+    if not book_list:
+        
+        book_list = Books.objects.all()
+        
+        cache.set('books', book_list, timeout=3600)
 
     # Number of books to display per page
     per_page = 20
@@ -175,6 +187,7 @@ def show_books(request):
     return render(request, 'forms/show_books.html', {'books': books})
     
 def featured_books(request):
+    
     books = Books.objects.filter(availability="No")
     return render(request , 'forms/featured_books.html' , {
         'featured_books' : books
@@ -213,6 +226,7 @@ def confirm_email(request, uidb64, token):
 
 def forgot_password(request):
     return render(request , "forms/forgot_password.html")
+
 
 def reset_password(request):
     if request.method == "POST":

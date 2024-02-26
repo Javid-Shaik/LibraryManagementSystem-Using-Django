@@ -35,13 +35,16 @@ def user_profile(request , username ):
 #Functionality for providing the edit profile template
 @login_required
 def edit_profile(request):
+    
     return render(request, 'profile/edit_profile.html',{
         'user':request.user
     })
 
 
 #Fucntionality for saving the eidted profile of the user.
+@login_required
 def save_profile(request , username):
+    
     username = request.user.username
     profile = get_object_or_404(RegisterModel, username=username)
     if request.method == 'POST':
@@ -77,10 +80,10 @@ def save_profile(request , username):
 
 @login_required
 def borrow_books(request , book_id):
+    
     user = request.user   
     book = Books.objects.get(id=book_id)
     user_exists_in_member_model = Member.objects.filter(user__username=user.username).exists()
-    print(book.copies_available)
     already_borrowed = None
     
     if user_exists_in_member_model:
@@ -203,12 +206,12 @@ def return_book(request , book_id):
 def notify_book_available(request, book_id):
     user = request.user
     book = Books.objects.get(id=book_id)
-    print(book)
-    if book.availability:
+
+    if book.availability=="No":
         # Book is already available, send an immediate notification
         send_book_available_notification.delay(book.title, user.email)
-        print(user.email)
-        return JsonResponse({'message': f'You will receive an email when the book {book.title} becomes available.', 'success': True })
+        # print(user.email)
+        return JsonResponse({'message': f'You will receive an email when the book {book.title} becomes available.', 'success': True,'book':book.id })
     else:
         # Book is not available, show the Notify button
         return JsonResponse({'message': 'The book is currently not available.', 'success': False })

@@ -12,7 +12,7 @@ app = Celery('LibraryManagementSystem')
 
 # Using a string here means the worker doesn't have to serialize the configuration object.
 # This step ensures that the configuration is stored in the environment variables.
-app.config_from_object(settings, namespace='CELERY')
+app.config_from_object('django.conf:settings', namespace='CELERY')
 
 # Load task modules from all registered Django app configs.
 app.autodiscover_tasks(lambda: settings.INSTALLED_APPS)

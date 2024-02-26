@@ -1,82 +1,108 @@
 <!-- Modal -->
 {% load static %}
 <style>
-    #close {
-        background-color: #5a4c50;
-        color: #ccc;
-    }
-    #close:hover{
-        background-color: #2b2829;
-        color:#ffffff;
-    }
-    #notify {
-        background-color: #ffc107;
-        hoverColor: #cca106;
-        color: #1b1b1b;
-    }
-    #notify a {
-        text-decoration: none;
-        transition: all 0.3s ease;
-        color: #1b1b1b;
-    }
-    #notify:hover{
-        background: #cca106;
-        color: #fff;
-    }
+  #close {
+    background-color: #5a4c50;
+    color: #ccc;
+  }
+  #close:hover {
+    background-color: #2b2829;
+    color: #ffffff;
+  }
+  #notify {
+    background-color: #ffc107;
+    hovercolor: #cca106;
+    color: #1b1b1b;
+  }
+  #notify a {
+    text-decoration: none;
+    transition: all 0.3s ease;
+    color: #1b1b1b;
+  }
+  #notify:hover {
+    background: #cca106;
+    color: #fff;
+  }
 </style>
 
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header mt-5px">
-                <h5 class="modal-title" id="exampleModalLabel" style="color:#1b1b1b">Notification</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p id="borrowMessageText" style="color:#1b1b1b"></p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-sm mt-5px me-auto" id="notify">
-                    <a href="{% url 'notify_book_available' book_id=10 %}" id="notify-link">Notify</a>
-                </button>                
-                <button type="button" class="btn btn-secondary btn-sm mt-5px" id="close" data-bs-dismiss="modal">Close</button>
-            </div>
-        </div>
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header mt-5px">
+        <h5 class="modal-title" id="exampleModalLabel" style="color: #1b1b1b">
+          Notification
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <p id="borrowMessageText" style="color: #1b1b1b"></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-sm mt-5px me-auto" id="notify">
+          <a
+            href="{% url 'notify_book_available' book_id=10 %}"
+            id="notify-link"
+            >Notify</a
+          >
+        </button>
+        <button
+          type="button"
+          class="btn btn-secondary btn-sm mt-5px"
+          id="close"
+          data-bs-dismiss="modal"
+        >
+          Close
+        </button>
+      </div>
     </div>
+  </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    $(document).ready(function () {
-        // When the Notify button is clicked
-        $('#notify-link').on('click', function (event) {
-            event.preventDefault(); // Prevent the default behavior of the anchor tag
+  $(document).ready(function () {
+    // When the Notify button is clicked
+    $("#notify-link").on("click", function (event) {
+      event.preventDefault(); // Prevent the default behavior of the anchor tag
 
-            // Get the URL from the href attribute of the anchor tag
-            var notifyUrl = $(this).attr('href');
-            console.log(notifyUrl);
-            // Send an AJAX request to the notify_book_available view
-            $.ajax({
-                type: 'GET',
-                url: notifyUrl,
-                success: function (data) {
-                    console.log(data);
-                    if (data.success) {
-                        // If successful, show the success message in the modal
-                        $('#borrowMessageText').text(data.message);
-                        $('#borrowMessageModal').modal('show');
-                        $('#exampleModalLabel').text('Notification Sent').css('color', 'green');
-                    } else {
-                        // If not successful, show the error message in the modal
-                        $('#borrowMessageText').text(data.message).css('color', '#1b1b1b');
-                        $('#borrowMessageModal').modal('show');
-                        $('#exampleModalLabel').text('Sorry!').css('color', 'red');
-                    }
-                },
-                error: function (xhr, textStatus, errorThrown) {
-                    // Handle any error that occurred during the AJAX request
-                    console.error('Error:', textStatus, errorThrown);
-                }
-            });
-        });
+      // Get the URL from the href attribute of the anchor tag
+      var notifyUrl = $(this).attr("href");
+      console.log(notifyUrl);
+      // Send an AJAX request to the notify_book_available view
+      $.ajax({
+        type: "GET",
+        url: notifyUrl,
+        success: function (data) {
+          console.log(data);
+          if (data.success) {
+            // If successful, show the success message in the modal
+            $("#borrowMessageText").text(data.message);
+            $("#borrowMessageModal").modal("show");
+            $("#exampleModalLabel")
+              .text("Notification Sent")
+              .css("color", "green");
+          } else {
+            // If not successful, show the error message in the modal
+            $("#borrowMessageText").text(data.message).css("color", "#1b1b1b");
+            $("#borrowMessageModal").modal("show");
+            $("#exampleModalLabel").text("Sorry!").css("color", "red");
+          }
+        },
+        error: function (xhr, textStatus, errorThrown) {
+          // Handle any error that occurred during the AJAX request
+          console.error("Error:", textStatus, errorThrown);
+        },
+      });
     });
+  });
 </script>

@@ -1,0 +1,223 @@
+
+/* Table Styling */
+.books {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 100px;
+    margin-bottom: 10px;
+}
+  
+.books th,
+.books td {
+  padding: 5px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  color: #ccc;
+}
+
+.books th {
+  background-color: #ccc;
+  color: #1b1b1b;
+}
+
+/* Cover Image Styling */
+
+.cover-image {
+  position: relative;
+}
+.cover-image img {
+  width: 75px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 5px;
+  padding-top: 2px;
+}
+
+
+
+/* Book Details Styling */
+.books td:nth-child(2) {
+  display: flex;
+  align-items: center;
+}
+
+.books td p {
+  margin: 0;
+}
+
+/* Alternate Row Styling */
+.books tr:nth-child(even) {
+  background-color: #4e4c4c;
+}
+
+/* SI.NO Column Styling */
+.books td:first-child {
+  font-weight: bold;
+}
+
+/* Borrow button css */
+.borrow-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 20px;
+  background-color: #1e90ff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 12px;
+  cursor: pointer;
+  line-height: 1px;
+}
+.borrow-button a{
+  text-decoration: none;
+}
+.borrow-button a {
+  margin-right: 8px;
+}
+
+.borrow-button:hover {
+  background-color: #0066cc;
+}
+
+.borrow-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(30, 144, 255, 0.3);
+}
+
+  /* Modal container */
+.modal-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  display: none;
+  z-index: 9999;
+}
+/* Modal content */
+.modal-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+} 
+.book-details {
+  display: flex;
+  align-items: center;
+}
+
+.cover-image {
+  position: relative;
+}
+.description {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0.5, 1, 0, 0.7); 
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0; /* Initially hidden */
+  transition: opacity 0.3s ease;
+}
+
+.cover-image:hover .description {
+  cursor : pointer;
+  opacity: 1; /* Show the description on hover */
+}
+.cover-image p{
+  padding:10px;
+  color:#fff;
+  margin-left:5px;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.pagination a {
+  color: #007bff;
+  text-decoration: none;
+  padding: 8px 16px;
+  transition: background-color 0.3s;
+  border: 1px solid #ddd;
+}
+
+.pagination a.active {
+  background-color: #007bff;
+  color: white;
+  border: 1px solid #007bff;
+}
+
+.pagination a:hover:not(.active) {
+  background-color: #ddd;
+}
+
+.book-list-container {
+  min-height: 400px; /* Adjust the minimum height as needed */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Media query for screens up to 768px */
+@media (max-width: 768px) {
+  .books {
+    width: 100%;
+    overflow-x: auto;
+    margin-top: 30%; 
+  }
+
+  .books th,
+  .books td {
+    white-space: nowrap;
+    font-size: 10px;
+  }
+
+  .cover-image img {
+    width: 50px;
+    height: 70px;
+  }
+
+  .books td {
+    padding: 3px;
+  }
+
+  .books th {
+    padding: 5px;
+  }
+
+  /* Adjustments for the borrow button */
+  .borrow-button {
+    padding: 8px 16px;
+    font-size: 10px;
+  }
+
+  .pagination {
+    margin-top: 10px; 
+  }
+
+  .pagination a {
+    padding: 5px 10px;
+    font-size: 10px;
+  }
+  
+  /* Adjustments for the modal content */
+  .modal-content {
+    padding: 10px;
+  }
+  
+  .cover-image p {
+    padding: 5px;
+  }
+}
+
