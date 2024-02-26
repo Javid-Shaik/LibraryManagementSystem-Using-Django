@@ -162,13 +162,13 @@ def logout_user(request):
 def show_books(request):
     
     # Check if books are already in the cache
-    book_list = cache.get('books')
+    # book_list = cache.get('books')
     
-    if not book_list:
+    # if not book_list:
         
-        book_list = Books.objects.all()
-        
-        cache.set('books', book_list, timeout=3600)
+    book_list = Books.objects.all()
+    
+    # cache.set('books', book_list, timeout=3600)
 
     # Number of books to display per page
     per_page = 20
