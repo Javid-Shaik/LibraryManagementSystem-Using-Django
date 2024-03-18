@@ -14,7 +14,7 @@ click-plugins==1.1.1
 click-repl==0.3.0
 colorama==0.4.3
 decouple==0.0.7
-Django==4.2.1
+Django==4.2.11
 django-redis==5.4.0
 django-smtp-ssl==1.0
 django-sslserver==0.22
