@@ -19,7 +19,7 @@ django-redis==5.4.0
 django-smtp-ssl==1.0
 django-sslserver==0.22
 gunicorn==21.2.0
-idna==3.4
+idna==3.7
 jmespath==1.0.1
 kombu==5.3.1
 packaging==23.2
